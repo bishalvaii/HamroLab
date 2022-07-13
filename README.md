@@ -1,3 +1,16 @@
+Live Project : https://okhati-demo-dashboard.netlify.app
+
+Technology and tools used 
+- React for UI components 
+- Redux and redux toolkit for user state management
+- Material UI for the look and feel of the website
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
