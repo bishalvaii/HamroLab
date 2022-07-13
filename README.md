@@ -1,15 +1,13 @@
-Live Project : https://okhati-demo-dashboard.netlify.app
+###Live Project : https://okhati-demo-dashboard.netlify.app
 
-Technology and tools used 
+##Technology and tools used 
 - React for UI components 
 - Redux and redux toolkit for user state management
-- Material UI for the look and feel of the website
+- Material UI with styled components for the looks and feel of the website
 
-
-
-
-
-
+##Project Description
+ Any user with valid email and username can login  to the dashboard of the okhati. You will have to register if you do not have valid credentials.
+ The registerd user details will be stored in local storage which will be available even after the browser is closed and session is over . If the user does not exist user will be directed to the landing page. User data are checked to see if the data provided by user are valid or not. If the correct credentials are provided user can see the dashboard and interact with it for getting information about the site . After using the website user can log out of the dashboard if they wants  
 
 # Getting Started with Create React App
 
