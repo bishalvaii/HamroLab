@@ -1,6 +1,6 @@
-import okhati from '../assets/images/okhati.png';
+import hamrolab from '../assets/images/hamrolab.png';
 
 const Logo = () => {
-  return <img src={okhati} alt='jobster logo' className='logo' />;
+  return <img src={hamrolab} alt='jobster logo' className='logo' />;
 };
 export default Logo;

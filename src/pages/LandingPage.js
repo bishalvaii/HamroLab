@@ -28,13 +28,11 @@ const LandingPage = () => {
         <Grid container spacing={6} className={classes.gridContainer}>
           <Grid item xs={12} md={6}>
             <Typography variant="h3" fontWeight={700} className={classes.title}>
-              Okhati Dashboard
+              HamroLab 
             </Typography>
             <Typography variant="h6" className={classes.subtitle}>
-              Okhati suite comprises of a bunch of smart solutions made for
-              clinics, labs & hospitals that consists of EMR , patient-flow
-              management, billing, reporting, bulk-messaging, app engagement and
-              much more.
+             HamroLab is a Lab Information Management System which is used in small medical laboratories
+             to make daily activites like sample tracking and reporting easier , accurate and convinently
             </Typography>
             <Link href="register" underline='none'>
               <Button

@@ -11,6 +11,7 @@ import { Patients } from "./components/Patients";
 
 import DoctorList from "./components/DoctorList";
 import { createTheme, ThemeProvider } from "@mui/material";
+import Lab from "./components/Lab";
 
 function App() {
   const theme = createTheme({
@@ -33,6 +34,7 @@ function App() {
           }
         >
           <Route index element={<ParentDashboard />} />
+          <Route path="lab" element={<Lab />} />
           <Route path="appointments" element={<Appointments />} />
           <Route path="doctors" element={<DoctorList />} />
           <Route path="patients" element={<Patients />} />
