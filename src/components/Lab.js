@@ -1,7 +1,8 @@
-import { Button, FormControl, Grid, InputAdornment, MenuItem, Select, TextField } from '@mui/material';
+import { Button, FormControl, Grid, InputAdornment, MenuItem, Select, TextField,Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import DataTable from "./MyTable"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -141,6 +142,7 @@ function Lab() {
 
   return (
     <div className={classes.root}>
+      
       <h1>Lab Information Management System</h1>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
@@ -182,8 +184,11 @@ function Lab() {
       <div className={classes.labForm}>
         {/* Lab Form component goes here */}
       </div>
-    </div>
-    );
-    }
-    export default Lab
-         
+      <Box sx={{mt:'20px'}}>
+      <DataTable />
+      </Box>
+    </div>  
+    
+  )
+}
+export default Lab

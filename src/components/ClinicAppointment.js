@@ -1,6 +1,7 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
-import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import ScienceIcon from '@mui/icons-material/Science';
+import { Science } from '@mui/icons-material';
 
 export const ClinicAppointment = (props) => (
   <Card {...props}>
@@ -16,7 +17,7 @@ export const ClinicAppointment = (props) => (
             gutterBottom
             variant="overline"
           >
-            TOTAL APPOINTMENTS
+            TOTAL LABS
           </Typography>
           <Typography
             color="textPrimary"
@@ -33,7 +34,7 @@ export const ClinicAppointment = (props) => (
               width: 56
             }}
           >
-            <PeopleIcon />
+            <ScienceIcon />
           </Avatar>
         </Grid>
       </Grid>

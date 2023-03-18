@@ -12,9 +12,9 @@ export const products = [
   {
     id: uuid(),
     createdAt: '31/03/2019',
-    description: 'We offers various Surgical Services. Surgery is a critical job and must be done with very carefullness    ',
+    description: 'We offers various Biochemistry Services.   ',
     media: 'https://icon-library.com/images/operation-icon/operation-icon-21.jpg',
-    title: 'Surgical Services',
+    title: 'Biochemistry Services',
  
   },
   {
@@ -28,9 +28,9 @@ export const products = [
   {
     id: uuid(),
     createdAt: '04/04/2019',
-    description: 'Paediatric services involves the treatment of the kids or infants with our specialized doctors in the field',
+    description: 'Microbiology services involves the treatment of the kids or infants with our specialized doctors in the field',
     media: 'https://w7.pngwing.com/pngs/307/686/png-transparent-pediatrics-computer-icons-family-medicine-physician-family-medicine-doctor-child-care-icon-miscellaneous-child-text.png',
-    title: 'Paediatric Services',
+    title: 'Microbiology Services',
     
   },
   {
@@ -46,7 +46,7 @@ export const products = [
     createdAt: '04/04/2019',
     description: 'If you are suffering from any kind of physical and mental disease and feel free to share with us for services',
     media: 'https://cdn.imgbin.com/11/20/9/imgbin-physical-therapy-computer-icons-manual-therapy-therapy-iEvdiMvrFen3TsgkfDbbNXyZ0.jpg',
-    title: 'Rehabilitation Services',
+    title: 'Pathology Services',
     
   }
 ];
