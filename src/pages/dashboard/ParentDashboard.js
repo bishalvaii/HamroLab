@@ -6,13 +6,7 @@ import { ClinicBudget, ClinicPatient } from "../../components/ClinicPatient";
 import { ClinicMember, ClinicTask } from "../../components/ClinicMember";
 import { ClinicDoctors, ClinicProfit } from "../../components/ClinicDoctors";
 import { Box, Container, Grid } from "@mui/material";
-import { ClinicSales } from "../../components/ClinicSales";
-import { ClinicDeparts, ClinicTraffic } from "../../components/ClinicDeparts";
-import { Appointments } from "../../components/Appointments";
-import {
-  ClinicFollowUp,
-  ClinicProducts,
-} from "../../components/ClinicFollowUp";
+
 import { ClinicAppointment } from "../../components/ClinicAppointment";
 
 const ParentDashboard = () => {
@@ -40,18 +34,9 @@ const ParentDashboard = () => {
             <Grid item xl={3} lg={3} sm={6} xs={12}>
               <ClinicDoctors sx={{ height: "100%" }} />
             </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              <ClinicSales sx={{ height: "100%" }} />
-            </Grid>
-            <Grid item lg={4} md={6} xl={3} xs={12}>
-              <ClinicDeparts sx={{ height: "100%" }} />
-            </Grid>
-            <Grid item lg={8} md={12} xl={9} xs={12}>
-              <Appointments />
-            </Grid>
-            <Grid item lg={4} md={6} xl={3} xs={12}>
-              <ClinicFollowUp sx={{ height: "100%" }} />
-            </Grid>
+          
+            
+            
           </Grid>
         </Container>
       </Box>

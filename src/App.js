@@ -6,12 +6,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { ParentDashboard, SharedLayout } from "./pages/dashboard";
 
 import Services from "./pages/dashboard/Services";
-import { Appointments } from "./components/Appointments";
 import { Patients } from "./components/Patients";
 
 import DoctorList from "./components/DoctorList";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Lab from "./components/Lab";
+import LabForm from "./components/LabForm";
+import LabDetails from "./components/LabDetails";
+import { useState } from "react";
 
 function App() {
   const theme = createTheme({
@@ -21,6 +23,20 @@ function App() {
         'sans-serif',
       ].join(','),
     },});
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      // submit the form data to the server
+    };
+  
+    const [formData, setFormData] = useState({
+      client: '',
+      orderedBy: '',
+      referrer: '',
+      selectedTest: '',
+      sampleTaken: '',
+      sampleTime: '',
+      remarks: ''
+    });
   return (
     <ThemeProvider theme = {theme}>
     <BrowserRouter>
@@ -35,8 +51,9 @@ function App() {
         >
           <Route index element={<ParentDashboard />} />
           <Route path="lab" element={<Lab />} />
-          <Route path="appointments" element={<Appointments />} />
-          <Route path="doctors" element={<DoctorList />} />
+          <Route path="/lab/create" element={<LabForm formData={formData} setFormData={setFormData} onSubmit={handleSubmit} />} />
+          <Route path="/lab/labRecords/status=sampleTaken" element={<LabDetails formData={formData} />} />
+          <Route path="doctors" element={<DoctorList />} /> 
           <Route path="patients" element={<Patients />} />
           <Route path="services" element={<Services />} />
         </Route>

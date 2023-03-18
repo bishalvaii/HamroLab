@@ -1,6 +1,72 @@
-import React, { useState } from 'react';
+import { Button, FormControl, Grid, InputAdornment, MenuItem, Select, TextField } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: '#fff',
+    padding: theme.spacing(3),
+  },
+  title: {
+    flexGrow: 1,
+    fontWeight: 'bold',
+    fontSize: '2rem',
+  },
+  labStatus: {
+    display: 'flex',
+    alignItems: 'center',
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+  },
+  labStatusButton: {
+    marginLeft: theme.spacing(2),
+    fontWeight: 'bold',
+    textTransform: 'none',
+  },
+  activeLabStatusButton: {
+    marginLeft: theme.spacing(2),
+    fontWeight: 'bold',
+    textTransform: 'none',
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
+  search: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
+    borderRadius: theme.shape.borderRadius,
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3),
+    width: '50%',
+  },
+  searchIcon: {
+    paddingLeft: theme.spacing(2),
+  },
+  searchInput: {
+    marginLeft: theme.spacing(1),
+    flexGrow: 1,
+    fontSize: '1rem',
+    padding: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius,
+  },
+  createLabButton: {
+    backgroundColor: theme.palette.primary.main,
+    color: '#fff',
+    fontWeight: 'bold',
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.dark,
+    },
+  },
+}));
 
 function Lab() {
+  const classes = useStyles();
   const [labStatus, setLabStatus] = useState('all');
   const [client, setClient] = useState('');
   const [orderedBy, setOrderedBy] = useState('');
@@ -11,10 +77,10 @@ function Lab() {
   const [remarks, setRemarks] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
   const [createLabTest, setCreateLabTest] = useState(false);
-
-  const handleLabStatusChange = (status) => {
-    setLabStatus(status);
-  };
+  const [labTests, setLabTests] = useState([]);
+  const [data, setData] = useState([]);
+  const navigate = useNavigate();
+  
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -49,8 +115,11 @@ function Lab() {
   };
 
   const handleCreateLabTest = () => {
-    setCreateLabTest(true);
+
   };
+  const handleLabStatusChange = () => {
+    
+  }
 
   const handleCancel = () => {
     setCreateLabTest(false);
@@ -60,102 +129,61 @@ function Lab() {
     // Logic to save the new lab test
     setCreateLabTest(false);
   };
+  const handleSaveLabTest = (newLabTest) => {
+    setLabTests([...labTests, newLabTest]);
+  };
 
-  const testOptions = ['Test 1', 'Test 2', 'Test 3'];
+
+  
+  if (labStatus !== 'all') {
+    labTests = labTests.filter((test) => test.status.toLowerCase().includes(labStatus.toLowerCase()));
+  }
 
   return (
-    <div className="Lab">
+    <div className={classes.root}>
       <h1>Lab Information Management System</h1>
-      <div className="lab-status">
-        <h2>Lab Status</h2>
-        <button onClick={() => handleLabStatusChange('all')} className={labStatus === 'all' ? 'active' : ''}>
-          All
-        </button>
-        <button onClick={() => handleLabStatusChange('ordered')} className={labStatus === 'ordered' ? 'active' : ''}>
-          Ordered
-        </button>
-        <button
-          onClick={() => handleLabStatusChange('sample-taken')}
-          className={labStatus === 'sample-taken' ? 'active' : ''}
-        >
-          Sample Taken
-        </button>
-        <button
-          onClick={() => handleLabStatusChange('incomplete-result')}
-          className={labStatus === 'incomplete-result' ? 'active' : ''}
-        >
-          Incomplete Result
-        </button>
-        <button
-          onClick={() => handleLabStatusChange('result-ready')}
-          className={labStatus === 'result-ready' ? 'active' : ''}
-        >
-          Result Ready
-        </button>
-        <button onClick={() => handleLabStatusChange('canceled')} className={labStatus === 'canceled' ? 'active' : ''}>
-          Canceled
-        </button>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item>
+          <FormControl variant="outlined" className={classes.formControl}>
+            <Select value={labStatus} onChange={handleLabStatusChange}>
+              <MenuItem value="all">All</MenuItem>
+              <MenuItem value="ordered">Ordered</MenuItem>
+              <MenuItem value="sample-taken">Sample Taken</MenuItem>
+              <MenuItem value="incomplete-result">Incomplete Result</MenuItem>
+              <MenuItem value="result-ready">Result Ready</MenuItem>
+              <MenuItem value="canceled">Canceled</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item className={classes.searchBox}>
+          <TextField
+            fullWidth
+            variant="outlined"
+            placeholder="Search by test ID, customer name, lab test name, ordered on, collected on, status, turn around time"
+            value={searchTerm}
+            onChange={handleSearch}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <i className="fa fa-search"></i>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item>
+          <Link to="/lab/create">
+            <Button variant="contained" color="primary" className={classes.createButton}>
+              Create New Lab
+            </Button>
+          </Link>
+        </Grid>
+      </Grid>
+      <div className={classes.labForm}>
+        {/* Lab Form component goes here */}
       </div>
-      <div className="lab-search">
-        <input
-          type="text"
-          placeholder="Search by"
-          value={searchTerm}
-onChange={handleSearch}
-/>
-</div>
-<div className="lab-table">
-{/* Code for rendering the lab test table */}
-</div>
-{createLabTest ? (
-<div className="create-lab-test">
-<h2>Create New Lab Test</h2>
-<form>
-<label>
-Client:
-<input type="text" value={client} onChange={handleClientChange} />
-</label>
-<label>
-Ordered By:
-<input type="text" value={orderedBy} onChange={handleOrderedByChange} />
-</label>
-<label>
-Referrer:
-<input type="text" value={referrer} onChange={handleReferrerChange} />
-</label>
-<label>
-Test:
-<select value={test} onChange={handleTestChange}>
-{testOptions.map((option) => (
-<option key={option} value={option}>
-{option}
-</option>
-))}
-</select>
-</label>
-<label>
-Sample Taken:
-<input type="checkbox" checked={sampleTaken} onChange={handleSampleTakenChange} />
-</label>
-<label>
-Sample Time:
-<input type="datetime-local" value={sampleTime} onChange={handleSampleTimeChange} />
-</label>
-<label>
-Remarks:
-<textarea value={remarks} onChange={handleRemarksChange} />
-</label>
-</form>
-<div className="buttons">
-<button onClick={handleSave}>Save</button>
-<button onClick={handleCancel}>Cancel</button>
-</div>
-</div>
-) : (
-<button onClick={handleCreateLabTest}>Create New Lab Test</button>
-)}
-</div>
-);
-}
-
-export default Lab;
+    </div>
+    );
+    }
+    export default Lab
+         
