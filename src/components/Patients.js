@@ -16,6 +16,7 @@ import {
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from './severity-pill';
+import { Link } from 'react-router-dom';
 
 
 const orders = [
@@ -90,7 +91,11 @@ const orders = [
 
 export const Patients = (props) => (
   <Card {...props}>
-    <CardHeader title="Patients List" />
+     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+     <CardHeader title="Patients List" />
+     <Link to="/patients/create"><Button sx={{marginRight: '4rem'}}variant='contained' color='primary'  >Create Patient</Button></Link>
+    </div>
+   
     <PerfectScrollbar>
       <Box sx={{ minWidth: 650 }}>
         <Table>

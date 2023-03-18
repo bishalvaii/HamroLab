@@ -16,6 +16,8 @@ import LabDetails from "./components/LabDetails";
 import { useState } from "react";
 import EnterTestResults from "./components/EnterTestResults";
 import Settings from "./components/Settings";
+import Createdoctor from "./components/Createdoctor";
+import Createpatient from "./components/Createpatient";
 
 function App() {
   const theme = createTheme({
@@ -57,6 +59,8 @@ function App() {
           <Route path="/lab/labRecords/status=sampleTaken" element={<LabDetails formData={formData} />} />
           <Route path="/lab/labRecords/entry" element={<EnterTestResults />} />
           <Route path="doctors" element={<DoctorList />} /> 
+          <Route path="/doctors/create" element={<Createdoctor />} />
+          <Route path="/patients/create" element={<Createpatient />} />
           <Route path="patients" element={<Patients />} />
           <Route path="services" element={<Services />} />
           <Route path="settings" element={<Settings />} />
