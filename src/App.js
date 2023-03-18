@@ -14,6 +14,8 @@ import Lab from "./components/Lab";
 import LabForm from "./components/LabForm";
 import LabDetails from "./components/LabDetails";
 import { useState } from "react";
+import Createdoctor  from "./components/Createdoctor";
+import Createpatient from "./components/Createpatient";
 
 function App() {
   const theme = createTheme({
@@ -56,6 +58,8 @@ function App() {
           <Route path="doctors" element={<DoctorList />} /> 
           <Route path="patients" element={<Patients />} />
           <Route path="services" element={<Services />} />
+          <Route path ="doctors/create"element={<Createdoctor />}/>
+          <Route path ="patients/create"element={<Createpatient />}/>
         </Route>
         
         <Route path="landing" element={<LandingPage />} />

@@ -2,12 +2,14 @@ import * as React from 'react';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import { Box } from '@mui/system';
-import { Typography } from '@mui/material';
+import { Typography ,Button} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export default function DoctorList() {
   return (
     <>
     <Typography variant='h4'>Our Doctors</Typography>
+    <Link to ="/doctors/create"> <Button>Create new doctor</Button> </Link>
     <ImageList sx={{ width: 750, height: 650 ,}} cols={3} rowHeight={250}>
       {itemData.map((item) => (
         <ImageListItem key={item.img} sx={{m:  3    }}>

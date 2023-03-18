@@ -1,6 +1,8 @@
 import { format } from 'date-fns';
 import { v4 as uuid } from 'uuid';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { Link } from 'react-router-dom';
+
 import {
   Box,
   Button,
@@ -12,7 +14,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
-  Tooltip
+  Tooltip,
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from './severity-pill';
@@ -91,6 +93,7 @@ const orders = [
 export const Patients = (props) => (
   <Card {...props}>
     <CardHeader title="Patients List" />
+    <Link to ="/patients/create"><Button>create patient</Button></Link>
     <PerfectScrollbar>
       <Box sx={{ minWidth: 650 }}>
         <Table>
