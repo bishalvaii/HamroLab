@@ -1,4 +1,5 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import { AttachFile } from "@mui/icons-material";
+import { Box, Button, FormControl, IconButton, InputLabel, MenuItem, Select, TextareaAutosize, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Link } from "react-router-dom";
 
@@ -6,7 +7,8 @@ const useStyles = makeStyles((theme) => ({
   heading: {
     fontSize: '2rem',
     fontWeight: 'bold',
-    marginBottom: '1rem',
+    marginBottom: '30px',
+    
   },
   button: {
     marginRight: '1rem',
@@ -27,56 +29,26 @@ const useStyles = makeStyles((theme) => ({
     marginRight: '0.5rem',
   },
   value: {
-    marginBottom: '1rem',
-    marginTop:' 2rem'
+    marginBottom: '0.5rem',
+    width: '40%',
+    
   },
 }));
 
-function LabDetails({ formData}) {
+function EnterTestResults({ formData}) {
   console.log(formData)
   const classes = useStyles();
   return (
     <div  >
-      <div style={{ display: 'flex',  alignItems: 'center' }}>
+
+
+<div style={{ display: 'flex',  alignItems: 'center' }}>
       <Typography sx={{marginBottom: '30px', marginRight: '20px' }}variant="h3  " className={classes.heading} >
-        Lab Details
+        Lab Test Results
       </Typography>
-      <Box
-  sx={{
-    width: '200px',
-    height: '50px',
-    bgcolor: 'green',
-    color: 'white',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: '5px',
-  }}
->
-  Sample Taken
-</Box>
-        </div>
+      </div>
       
-      <Button sx={{ mx: 2 }} variant="contained" className={classes.button}>
-        Edit Tests
-      </Button>
-      <Link to="/lab/labRecords/entry"><Button sx={{ mx: 2 }} variant="contained" className={classes.button}>
-        Enter Test Results
-      </Button>
-      </Link>
-      <FormControl sx={{ mx: 2 }} className={classes.formControl}>
-  <InputLabel id="select-label">Cancel test</InputLabel>
-  <Select
-    labelId="select-label"
-    id="select"
-    
-    
-    className={classes.select}
-  >
-    <MenuItem value="create-bill">Create Bill</MenuItem>
-    <MenuItem value="cancel-test">Cancel Lab Test</MenuItem>
-  </Select>
-</FormControl >
+   
       <div className={classes.value}>
         <Typography className={classes.label}>Client:</Typography>
         <Typography>{formData?.client}</Typography>
@@ -105,9 +77,39 @@ function LabDetails({ formData}) {
         <Typography className={classes.label}>Remarks:</Typography>
         <Typography>{formData?.remarks}</Typography>
       </div>
+      <div className={classes.value}>
+  <Typography className={classes.label}>Test Name:</Typography>
+  <Typography>{formData?.testName}</Typography>
+</div>
+<div className={classes.value}>
+  <Typography className={classes.label}>Comment:</Typography>
+  <TextareaAutosize
+    rowsMin={3}
+    placeholder="Add a comment..."
+    sx={{ width: '100%', borderRadius: '5px', padding: '0.5rem' }}
+  />
+</div>
+<Box sx={{ display: 'flex', alignItems: 'center', mt: '2rem' }}>
+  <IconButton>
+    <AttachFile />
+  </IconButton>
+  <Typography variant="h6">Attachments</Typography>
+</Box>
+<br />
+<Box >
+<Box sx={{display: 'flex', justifyContent: 'flex-end', marginTop: '2rem'}}>
+  <Button className={classes.saveButton} variant="contained" color="primary" disableElevation sx={{mr: '1rem'}}>
+    Save as Draft
+  </Button>
+  <Button variant="contained" color="primary" disableElevation>
+    Finalize
+  </Button>
+</Box>
+
+</Box>
     </div>
   );
   
       
   } 
-  export default LabDetails
+  export default EnterTestResults

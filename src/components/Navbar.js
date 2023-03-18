@@ -1,8 +1,9 @@
-import { FaAlignLeft, FaUserCircle, FaCaretDown } from "react-icons/fa";
+import { FaAlignLeft, FaUserCircle, FaCaretDown, FaSearch, FaBell} from "react-icons/fa";
 import Logo from "./Logo";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSidebar, clearStore } from "../features/user/userSlice";
+import HelpIcon from '@mui/icons-material/Help';
 import {
   AppBar,
   Button,
@@ -13,6 +14,9 @@ import {
   Toolbar,
   Typography,
   Link,
+  InputBase,
+  IconButton,
+  Badge,
 } from "@mui/material";
 import Wrapper from "../assets/wrappers/Navbar";
 
@@ -66,6 +70,25 @@ const Navbar = () => {
                   Dashboard
                 </Typography>
               </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', color: '#333' }}>
+  <HelpIcon sx={{ mr: 1 }} />
+  <Typography>Help</Typography>
+</Box>
+<Box className="search-bar" sx={{ display: { xs: "none", sm: "block" }, position: "relative", ml: "3rem", color: '#333' }}>
+  <Box sx={{ position: "absolute", top: "50%", left: "8px", transform: "translateY(-50%)" }}>
+    <FaSearch />
+  </Box>
+  <InputBase placeholder="Search" sx={{ pl: "2.5rem", pr: "0.5rem", width: "300px", borderRadius: "5px", color: '#333' }} />
+</Box>
+
+              <Box className="notifications-icon" sx={{ display: { xs: "none", sm: "block" }, position: "relative", ml: "2rem" }}>
+                <IconButton color="primary" sx={{ p: 1 ,mr: '3rem'}}>
+                  <Badge badgeContent={4} color="secondary">
+                    <FaBell fontSize="1.5rem" />
+                  </Badge>
+                </IconButton>
+              </Box>
+              
             </Box>
 
             <Box className="btn-container" sx={{ m: "30px 4px" }}>

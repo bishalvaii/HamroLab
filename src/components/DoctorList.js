@@ -5,7 +5,10 @@ import { Box } from '@mui/system';
 import { Typography ,Button} from '@mui/material';
 import { Link } from 'react-router-dom';
 
+
+
 export default function DoctorList() {
+  
   return (
     <>
     <Typography variant='h4'>Our Doctors</Typography>
@@ -81,6 +84,6 @@ const itemData = [
     img: 'https://img.freepik.com/premium-photo/medical-concept-indian-beautiful-female-doctor-white-coat-with-stethoscope-waist-up-medical-student-woman-hospital-worker-looking-camera-smiling-studio-blue-background_185696-621.jpg',
     depart: 'Cardiologist',
     title: 'Nandita Adhikari',
-  },
+  }
  
 ];
