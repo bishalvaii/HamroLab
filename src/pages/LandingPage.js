@@ -17,9 +17,9 @@ const LandingPage = () => {
           m: "0 auto",
           display: "flex",
           alignItems: "center",
-          maxWidth: "1120px",
-          width: "90vw",
-          height: "6rem",
+          
+          width: "50vw",
+          height: "8rem",
         }}
       >
         <Logo />

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import DataTable from "./MyTable"
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -69,6 +70,8 @@ const useStyles = makeStyles((theme) => ({
 function Lab() {
   const classes = useStyles();
   const [labStatus, setLabStatus] = useState('all');
+  const [patients, setPatients] = useState([]);
+
   const [client, setClient] = useState('');
   const [orderedBy, setOrderedBy] = useState('');
   const [referrer, setReferrer] = useState('');
@@ -82,6 +85,19 @@ function Lab() {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const response = await fetch("localhost:4000/api/patients");
+        const patients = await response.json();
+        setPatients(patients);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchPatients();
+  }, []);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);

@@ -20,8 +20,6 @@ import Createpatient from "./components/Createpatient";
 
 import EnterTestResults from "./components/EnterTestResults";
 import Settings from "./components/Settings";
-import Createdoctor from "./components/Createdoctor";
-import Createpatient from "./components/Createpatient";
 
 
 function App() {

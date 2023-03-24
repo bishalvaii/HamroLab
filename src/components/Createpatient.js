@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField, Button, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 
 const Createpatient = () => {
@@ -7,14 +7,60 @@ const Createpatient = () => {
   const [dateTime, setDateTime] = useState("");
   const [doctorName, setDoctorName] = useState("");
   const [status, setStatus] = useState("");
+  const [patients, setPatients] = useState([]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log({ patientName, diseaseName, dateTime, doctorName, status });
-    // TODO: Handle form submission, e.g. by sending data to server
+ const handleSubmit = async (event) => {
+  event.preventDefault();
+
+  const formData = {
+    patient_name: patientName,
+    disease_name: diseaseName,
+    date_time: dateTime,
+    doctor_name: doctorName,
+    status: status,
   };
 
+  try {
+    const response = await fetch("http://localhost:4000/api/create/patients", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },                                   
+      body: JSON.stringify(formData),
+    });
+
+    if (response.ok) {
+      console.log("Patient created successfully");
+      const patientsResponse = await fetch("http://localhost:4000/api/patients");
+      const patientsData = await patientsResponse.json();
+      setPatients(patientsData);
+    } else {
+      console.error("Failed to create patient");
+    }
+  } catch (error) {
+    console.log("this happended");
+  }
+}
+  
+
+
+
   return (
+    <>
+    
+    <h1>Patients</h1>
+    <ul>
+      {patients.map((patient) => (
+        <li key={patient.id}>
+          <p>Patient Name: {patient.patient_name}</p>
+          <p>Disease Name: {patient.disease_name}</p>
+          <p>Date Time: {patient.date_time}</p>
+          <p>Doctor Name: {patient.doctor_name}</p>
+          <p>Status: {patient.status}</p>
+        </li>
+      ))}
+    </ul>
+    
     <form onSubmit={handleSubmit}>
       <TextField
         label="Patient Name"
@@ -69,6 +115,7 @@ const Createpatient = () => {
         Submit
       </Button>
     </form>
+    </>
   );
 };
 
