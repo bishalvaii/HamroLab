@@ -70,70 +70,41 @@ const useStyles = makeStyles((theme) => ({
 function Lab() {
   const classes = useStyles();
   const [labStatus, setLabStatus] = useState('all');
-  const [patients, setPatients] = useState([]);
 
-  const [client, setClient] = useState('');
-  const [orderedBy, setOrderedBy] = useState('');
-  const [referrer, setReferrer] = useState('');
-  const [test, setTest] = useState('');
-  const [sampleTaken, setSampleTaken] = useState(false);
-  const [sampleTime, setSampleTime] = useState('');
-  const [remarks, setRemarks] = useState('');
+
   const [searchTerm, setSearchTerm] = useState('');
   const [createLabTest, setCreateLabTest] = useState(false);
   const [labTests, setLabTests] = useState([]);
-  const [data, setData] = useState([]);
   const navigate = useNavigate();
   
-  useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await fetch("localhost:4000/api/patients");
-        const patients = await response.json();
-        setPatients(patients);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchPatients = async () => {
+  //     try {
+  //       const response = await fetch("localhost:4000/api/patients");
+  //       const patients = await response.json();
+  //       setPatients(patients);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
 
-    fetchPatients();
-  }, []);
+  //   fetchPatients();
+  // }, []);
+
+ 
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const handleClientChange = (event) => {
-    setClient(event.target.value);
-  };
 
-  const handleOrderedByChange = (event) => {
-    setOrderedBy(event.target.value);
-  };
 
-  const handleReferrerChange = (event) => {
-    setReferrer(event.target.value);
-  };
 
-  const handleTestChange = (event) => {
-    setTest(event.target.value);
-  };
 
-  const handleSampleTakenChange = (event) => {
-    setSampleTaken(event.target.checked);
-  };
+ 
 
-  const handleSampleTimeChange = (event) => {
-    setSampleTime(event.target.value);
-  };
 
-  const handleRemarksChange = (event) => {
-    setRemarks(event.target.value);
-  };
-
-  const handleCreateLabTest = () => {
-
-  };
+ 
   const handleLabStatusChange = () => {
     
   }
@@ -202,6 +173,7 @@ function Lab() {
       </div>
       <Box sx={{mt:'20px'}}>
       <DataTable />
+     
       </Box>
     </div>  
     

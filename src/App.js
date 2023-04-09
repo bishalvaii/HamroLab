@@ -57,7 +57,7 @@ function App() {
           }
         >
           <Route index element={<ParentDashboard />} />
-          <Route path="lab" element={<Lab />} />
+          <Route path="lab" element={<Lab labs />} />
           <Route path="/lab/create" element={<LabForm formData={formData} setFormData={setFormData} onSubmit={handleSubmit} />} />
           <Route path="/lab/labRecords/status=sampleTaken" element={<LabDetails formData={formData} />} />
           <Route path="/lab/labRecords/entry" element={<EnterTestResults />} />

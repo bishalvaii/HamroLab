@@ -24,10 +24,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function LabForm(props) {
+export default function LabForm() {
   const [selectedTest, setSelectedTest] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
-
+  const [labs, setLabs] = useState([])
+  const [clientname, setClientName] = useState("");
+  const [remarks, setRemarks] = useState("");
+  const [sampleTime, setSampleTime] = useState(new Date());
+  const [orderedBy, setOrderedBy] = useState("")
+  const [referrer, setReferrer] = useState("");
+  const [sampleTaken, setSampleTaken] = useState(false);
   const classes = useStyles();
 
   
@@ -35,30 +41,16 @@ export default function LabForm(props) {
     setSelectedTest(test.name);
     setShowDropdown(false);
   };
-  const {
-    handleCancel,
-    
-    onDataSave // callback function passed from parent component
-  } = props;
+  
 const navigate = useNavigate();
  
   const [isSaved, setIsSaved] = useState(false)
-  const [formData, setFormData] = useState({
-    client: '',
-    orderedBy: '',
-    referrer: '',
-    selectedTest: '',
-    sampleTaken: false,
-    sampleTime: '',
-    remarks: '',
-  });
-
-  const handleChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
+ 
+  const handleSampleTimeChange = (dateTime) => {
+    setSampleTime(dateTime);
   };
+
+  
 
   const labTests = [
     { id: 1, name: "SARS-CoV-2 PCR Test" },
@@ -81,43 +73,66 @@ const navigate = useNavigate();
     setIsSaved(true);
     navigate.push("/lab/labRecords/status=sampleTaken")
   };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    ReactDOM.render(<Lab formData={formData} />, document.getElementById('root'));
+    const formData = {
+      client_name: clientname,
+      referrer: referrer,
+      test_name: selectedTest,
+
+      ordered_by: orderedBy,
+      sample_taken: sampleTaken,
+      sample_time: sampleTime,
+      remarks: remarks
+
+    }
+   
+   try {
+     const response = await fetch('http://localhost:4000/api/labtests', {
+       method: 'POST',
+       headers: {
+         'Content-Type': 'application/json',
+         'Accept': 'application/json',
+       },  
+       body: JSON.stringify(formData),
+     });
+     if (response.ok) {
+       const labResponse = await fetch("http://localhost:4000/api/labtests");
+       const labData = await labResponse.json();
+       setLabs(labData)
+     } else {
+       console.error("Failed to create lab")
+     }
+   } catch(error) {
+     console.log("Shit happens")
+   }
+ 
   }
-  //   const formData = { client, orderedBy, referrer, selectedTest, sampleTaken, sampleTime, remarks };
-  
-  //   try {
-  //     const response = await fetch('/api/labtests', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         'Accept': 'application/json',
-  //       },  
-  //       body: JSON.stringify(formData),
-  //     });
-  
-  //     const data = await response.json();
-  //     console.log('Saved lab test:', data);
     
-  //     // Here, you can update your UI with the saved data
-  //   } catch (error) {
-  //     console.error('Failed to save lab test:', error);
-  //     // Here, you can show an error message to the user
-  //   }
+
   
-  //   setClient("");
-  //   setOrderedBy("");
-  //   setReferrer("");
-  //   setTest("");
-  //   setSampleTaken(false);
-  //   setSampleTime("");
-  //   setRemarks("");
-  // };
+  
   
 
   return (
-  
+    <>
+    
+    {/* <ul>
+      {labs?.map((lab) => (
+        <li key={lab.id}>
+          <p>Client Name: {lab.client_name}</p>
+          <p>Ordered by : {lab.ordered_by}</p>
+          <p>referrer: {lab.referrer}</p>
+          <p>sampleTaken: {lab.sample_taken}</p>
+          <p>sampleTime: {lab.sample_time}</p>
+          <p>selectedTest: {lab.selectedTest}</p>
+          <p>remarks: {lab.remarks}</p>
+        </li>
+      ))}
+    </ul>
+     */}
     <Paper className={classes.paper}>
     <Typography variant="h4">Create Lab Test</Typography>
     <form onSubmit={handleSubmit} className={classes.root}>
@@ -128,8 +143,8 @@ const navigate = useNavigate();
             id="client"
             name="client"
             label="Client Name"
-            value={formData.client}
-            onChange={handleChange}
+            value={clientname}
+            onChange={(event) => setClientName(event.target.value)}
             fullWidth
           />
         </Grid>
@@ -139,8 +154,8 @@ const navigate = useNavigate();
             id="ordered-by"
             name="ordered-by"
             label="Ordered By"
-            value={formData.orderedBy}
-            onChange={handleChange}
+            value={orderedBy}
+            onChange={(event) => setOrderedBy(event.target.value)}
             fullWidth
           />
         </Grid>
@@ -150,8 +165,8 @@ const navigate = useNavigate();
             id="referrer"
             name="referrer"
             label="Referrer"
-            value={formData.referrer}
-            onChange={handleChange}
+            value={referrer}
+            onChange={(event) => setReferrer(event.target.value)}
             fullWidth
           />
         </Grid>
@@ -161,7 +176,7 @@ const navigate = useNavigate();
             name="test-search"
             label="Search for test"
             placeholder="Type to search tests"
-            value={formData.selectedTest}
+            value={selectedTest}
             onClick={() => setShowDropdown(true)}
             onChange={(e) => setSelectedTest(e.target.value)}
             fullWidth
@@ -183,34 +198,40 @@ const navigate = useNavigate();
                 id="sample-taken"
                 name="sample-taken"
                 color="primary"
-                checked={formData.sampleTaken}
-                onChange={handleChange}
+                checked={sampleTaken}
+                onChange={(event) => setSampleTaken(true)}
               />
             }
             label="Sample Taken"
           />
         </Grid>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-        {formData.sampleTaken && (
+        {sampleTaken && (
             <Grid item xs={12}>
-              <DateTimePicker label="Sample Time" inputVariant="outlined" value={formData.sampleTime} onChange={handleChange} />
+              <DateTimePicker label="Sample Time" inputVariant="outlined" value={sampleTime} onChange={handleSampleTimeChange} />
 
                          </Grid>
           )}
       </LocalizationProvider>
 
           <Grid item xs={12}>
-            <TextField label="Remarks" variant="outlined" fullWidth multiline rows={4} value={formData.remarks} onChange={handleChange} />
+            <TextField label="Remarks" variant="outlined" fullWidth multiline rows={4} value={remarks} onChange={(event) => setRemarks(event.target.value)} />
           </Grid>
           <Grid item xs={12} spacing={3}>
             <Link to="/lab"><Button variant="outlined" className={classes.button} onClick={handleCancelLab}>Cancel</Button></Link>
-            <Link to="/lab/labRecords/status=sampleTaken"><Button variant="contained" color="primary" type="submit" onClick={handleSave }>Save</Button></Link>
+          
+            <Link to="/lab/labRecords/status=sampleTaken"><Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Save</Button></Link>
           </Grid>
          
         
         </Grid>
         </form>
+        
+
+
         </Paper>
+        
+        </>
   )
     
   }

@@ -18,14 +18,62 @@ const Createdoctor = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [qualification, setQualification] = useState("");
+  const [doctors,setDoctors] = useState([]);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({ name, title, department, gender, email, phone, qualification });
-    // TODO: Handle form submission, e.g. by sending data to server
-  };
+  
+    const formData = {
+     doctor_name: name,
+     title: title,
+     qualification: qualification,
+     gender: gender,
+     phone: phone,
+     email: email,
+     department: department
+    };
+  
+    try {
+      const response = await fetch("http://localhost:4000/api/create/doctor", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },                                   
+        body: JSON.stringify(formData),
+      });
+  
+      if (response.ok) {
+        console.log("Doctor created successfully");
+        const doctorsResponse = await fetch("http://localhost:4000/api/doctors");
+        const doctorsData = await doctorsResponse.json();
+        setDoctors(doctorsData);
+      } else {
+        console.error("Failed to create doctor");
+      }
+    } catch (error) {
+      console.log("this happended");
+    }
+  }   
 
   return (
+    <>
+    <h1>Doctors</h1>
+   
+    <ul>
+      {doctors.map((doctor) => (
+        
+        <li key={doctor.id}>
+          <p>Doctor Name: {doctor.doctor_name}</p>
+          <p>Title: {doctor.title}</p>
+          <p>Qualification: {doctor.qualification}</p>
+          <p>Gender: {doctor.gender}</p>
+          <p>Phone : {doctor.phone}</p>
+          <p>Email: {doctor.email}</p>
+          <p>Department: {doctor.department}</p>
+        </li>
+      ))}
+    </ul>
+    
     <form onSubmit={handleSubmit}>
       <TextField
         label="Name"
@@ -94,6 +142,7 @@ const Createdoctor = () => {
         Submit
       </Button>
     </form>
+    </>
   );
 };
 
