@@ -7,6 +7,13 @@ import {
   Radio,
   FormControlLabel,
   Button,
+  TableCell,
+  TableBody,
+  TableRow,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
   
 } from "@mui/material";
 
@@ -59,21 +66,38 @@ const Createdoctor = () => {
     <>
     <h1>Doctors</h1>
    
-    <ul>
-      {doctors.map((doctor) => (
-        
-        <li key={doctor.id}>
-          <p>Doctor Name: {doctor.doctor_name}</p>
-          <p>Title: {doctor.title}</p>
-          <p>Qualification: {doctor.qualification}</p>
-          <p>Gender: {doctor.gender}</p>
-          <p>Phone : {doctor.phone}</p>
-          <p>Email: {doctor.email}</p>
-          <p>Department: {doctor.department}</p>
-        </li>
-      ))}
-    </ul>
-    
+    {/* <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="doctors table">
+        <TableHead>
+          <TableRow>
+            <TableCell>ID</TableCell>
+            <TableCell align="right">Name</TableCell>
+            <TableCell align="right">Title</TableCell>
+            <TableCell align="right">Department</TableCell>
+            <TableCell align="right">Gender</TableCell>
+            <TableCell align="right">Email</TableCell>
+            <TableCell align="right">Phone</TableCell>
+            <TableCell align="right">Qualification</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {doctors.map((doctor) => (
+            <TableRow key={doctor.id}>
+              <TableCell component="th" scope="row">
+                {doctor.id}
+              </TableCell>
+              <TableCell align="right">{doctor.doctor_name}</TableCell>
+              <TableCell align="right">{doctor.title}</TableCell>
+              <TableCell align="right">{doctor.department}</TableCell>
+              <TableCell align="right">{doctor.gender}</TableCell>
+              <TableCell align="right">{doctor.email}</TableCell>
+              <TableCell align="right">{doctor.phone}</TableCell>
+              <TableCell align="right">{doctor.qualification}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer> */}
     <form onSubmit={handleSubmit}>
       <TextField
         label="Name"

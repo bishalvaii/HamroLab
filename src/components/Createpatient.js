@@ -48,18 +48,7 @@ const Createpatient = () => {
   return (
     <>
     
-    <h1>Patients</h1>
-    <ul>
-      {patients.map((patient) => (
-        <li key={patient.id}>
-          <p>Patient Name: {patient.patient_name}</p>
-          <p>Disease Name: {patient.disease_name}</p>
-          <p>Date Time: {patient.date_time}</p>
-          <p>Doctor Name: {patient.doctor_name}</p>
-          <p>Status: {patient.status}</p>
-        </li>
-      ))}
-    </ul>
+    
     
     <form onSubmit={handleSubmit}>
       <TextField

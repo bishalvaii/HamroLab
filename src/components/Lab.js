@@ -1,8 +1,7 @@
-import { Button, FormControl, Grid, InputAdornment, MenuItem, Select, TextField,Box } from '@mui/material';
+import { Button, FormControl, Grid, InputAdornment, MenuItem, Select, TextField,Box, TableContainer, Paper, Table, TableHead, TableRow, TableCell, TableBody } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import DataTable from "./MyTable"
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
 function Lab() {
   const classes = useStyles();
   const [labStatus, setLabStatus] = useState('all');
+  const [labs, setLabs] = useState([])
 
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -77,33 +77,24 @@ function Lab() {
   const [labTests, setLabTests] = useState([]);
   const navigate = useNavigate();
   
-  // useEffect(() => {
-  //   const fetchPatients = async () => {
-  //     try {
-  //       const response = await fetch("localhost:4000/api/patients");
-  //       const patients = await response.json();
-  //       setPatients(patients);
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   };
+  React.useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:4000/api/labtests");
+        const data = await response.json();
+        setLabs(data);
+      } catch (error) {
+        console.error("Failed to fetch labs: ", error);
+      }
+    };
 
-  //   fetchPatients();
-  // }, []);
-
+    fetchData();
+  }, []);
  
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
-
-
-
-
-
- 
-
-
  
   const handleLabStatusChange = () => {
     
@@ -168,13 +159,34 @@ function Lab() {
           </Link>
         </Grid>
       </Grid>
-      <div className={classes.labForm}>
-        {/* Lab Form component goes here */}
-      </div>
-      <Box sx={{mt:'20px'}}>
-      <DataTable />
-     
-      </Box>
+      <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Client Name</TableCell>
+            <TableCell>Ordered By</TableCell>
+            <TableCell>Referrer</TableCell>
+            <TableCell>Sample Taken</TableCell>
+            <TableCell>Sample Time</TableCell>
+            <TableCell>Selected Test</TableCell>
+            <TableCell>Remarks</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {Array.isArray(labs) && labs.map((lab) => (
+            <TableRow key={lab.id}>
+              <TableCell>{lab.client_name}</TableCell>
+              <TableCell>{lab.ordered_by}</TableCell>
+              <TableCell>{lab.referrer}</TableCell>
+              <TableCell>{lab.sample_taken ? "Yes" : "No"}</TableCell>
+              <TableCell>{new Date(lab.sample_time).toLocaleString()}</TableCell>
+              <TableCell>{lab.test_name}</TableCell>
+              <TableCell>{lab.remarks}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
     </div>  
     
   )

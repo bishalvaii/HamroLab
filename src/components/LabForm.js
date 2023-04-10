@@ -90,11 +90,10 @@ const navigate = useNavigate();
     }
    
    try {
-     const response = await fetch('http://localhost:4000/api/labtests', {
+     const response = await fetch('http://localhost:4000/api/create/labtests', {
        method: 'POST',
        headers: {
          'Content-Type': 'application/json',
-         'Accept': 'application/json',
        },  
        body: JSON.stringify(formData),
      });
@@ -119,20 +118,8 @@ const navigate = useNavigate();
   return (
     <>
     
-    {/* <ul>
-      {labs?.map((lab) => (
-        <li key={lab.id}>
-          <p>Client Name: {lab.client_name}</p>
-          <p>Ordered by : {lab.ordered_by}</p>
-          <p>referrer: {lab.referrer}</p>
-          <p>sampleTaken: {lab.sample_taken}</p>
-          <p>sampleTime: {lab.sample_time}</p>
-          <p>selectedTest: {lab.selectedTest}</p>
-          <p>remarks: {lab.remarks}</p>
-        </li>
-      ))}
-    </ul>
-     */}
+   
+    
     <Paper className={classes.paper}>
     <Typography variant="h4">Create Lab Test</Typography>
     <form onSubmit={handleSubmit} className={classes.root}>
@@ -220,7 +207,7 @@ const navigate = useNavigate();
           <Grid item xs={12} spacing={3}>
             <Link to="/lab"><Button variant="outlined" className={classes.button} onClick={handleCancelLab}>Cancel</Button></Link>
           
-            <Link to="/lab/labRecords/status=sampleTaken"><Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Save</Button></Link>
+            <Button variant="contained" color="primary" type="submit" onClick={handleSubmit}>Save</Button>
           </Grid>
          
         
